@@ -1,6 +1,8 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
+#include "GameGround.h"
+
 #include <QWidget>
 
 namespace Ui {
@@ -17,6 +19,8 @@ public:
 
 private:
     Ui::GameWindow *ui;
+
+    GameGround *gameGround;
 };
 
 #endif // GAMEWINDOW_H

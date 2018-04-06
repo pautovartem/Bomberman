@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     GameWindow w;
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    w.show();
+    w.showFullScreen();
 
     return a.exec();
 }

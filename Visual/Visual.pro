@@ -26,11 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     GameWindow.cpp \
-    GameGround.cpp
+    GameGround.cpp \
+    BombermanHero.cpp
 
 HEADERS += \
     GameWindow.h \
-    GameGround.h
+    GameGround.h \
+    BombermanHero.h
 
 FORMS += \
     GameWindow.ui
+
+RESOURCES += \
+    models.qrc
+
+RC_ICONS = icon.ico

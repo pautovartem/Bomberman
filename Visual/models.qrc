@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/hero/Bomberman">
+        <file>models/bomberman/red/destroy.png</file>
+        <file>models/bomberman/red/down.png</file>
+        <file>models/bomberman/red/left.png</file>
+        <file>models/bomberman/red/right.png</file>
+        <file>models/bomberman/red/up.png</file>
+        <file>models/bomberman/purple/destroy.png</file>
+        <file>models/bomberman/purple/down.png</file>
+        <file>models/bomberman/purple/left.png</file>
+        <file>models/bomberman/purple/right.png</file>
+        <file>models/bomberman/purple/up.png</file>
+        <file>models/bomberman/green/destroy.png</file>
+        <file>models/bomberman/green/down.png</file>
+        <file>models/bomberman/green/left.png</file>
+        <file>models/bomberman/green/right.png</file>
+        <file>models/bomberman/green/up.png</file>
+        <file>models/bomberman/blue/destroy.png</file>
+        <file>models/bomberman/blue/down.png</file>
+        <file>models/bomberman/blue/left.png</file>
+        <file>models/bomberman/blue/right.png</file>
+        <file>models/bomberman/blue/up.png</file>
+    </qresource>
+</RCC>

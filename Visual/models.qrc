@@ -21,4 +21,9 @@
         <file>models/bomberman/blue/right.png</file>
         <file>models/bomberman/blue/up.png</file>
     </qresource>
+    <qresource prefix="/wall">
+        <file>models/walls/stone_destroy_32px.png</file>
+        <file>models/walls/stone_destroy_sprite_32.png</file>
+        <file>models/walls/stone_no_destroy_32px.png</file>
+    </qresource>
 </RCC>

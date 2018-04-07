@@ -7,9 +7,13 @@ GameGround::GameGround(QObject *parent) : QGraphicsScene()
 {
     bombermanHero = new BombermanHero(this);
 
-    addItem(bombermanHero);
+    this->addItem(bombermanHero);
     bombermanHero->setPos(60, 60);
 //    bombermanHero->setScale(5);
+
+    wall = new Wall;
+    addItem(wall);
+    wall->setPos(0, 0);
 }
 
 GameGround::~GameGround()

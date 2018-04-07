@@ -2,6 +2,7 @@
 #define GAMEGROUND_H
 
 #include "BombermanHero.h"
+#include "Wall.h"
 
 #include <QObject>
 #include <QGraphicsScene>
@@ -18,6 +19,7 @@ public slots:
 
 private:
     BombermanHero *bombermanHero;
+    Wall *wall;
 
     // QGraphicsScene interface
 protected:

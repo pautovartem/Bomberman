@@ -27,12 +27,16 @@ SOURCES += \
         main.cpp \
     GameWindow.cpp \
     GameGround.cpp \
-    BombermanHero.cpp
+    BombermanHero.cpp \
+    Wall.cpp \
+    WallDestroy.cpp
 
 HEADERS += \
     GameWindow.h \
     GameGround.h \
-    BombermanHero.h
+    BombermanHero.h \
+    Wall.h \
+    WallDestroy.h
 
 FORMS += \
     GameWindow.ui

@@ -26,9 +26,9 @@ BombermanHero::BombermanHero(QObject *parent) : QObject(parent), QGraphicsItem()
     connect(motionTimer, &QTimer::timeout, this, &BombermanHero::onMotionTimer);
     motionTimer->start(15);
 
-    moveTimer = new QTimer(this);
-    connect(moveTimer, &QTimer::timeout, this, &BombermanHero::onMoveTimer);
-    moveTimer->setInterval(200);
+    animationTimer = new QTimer(this);
+    connect(animationTimer, &QTimer::timeout, this, &BombermanHero::onAnimationTimer);
+    animationTimer->setInterval(200);
 }
 
 BombermanHero::~BombermanHero()
@@ -38,7 +38,7 @@ BombermanHero::~BombermanHero()
     delete texture;
 
     delete motionTimer;
-    delete moveTimer;
+    delete animationTimer;
 }
 
 QRectF BombermanHero::boundingRect() const
@@ -98,13 +98,13 @@ void BombermanHero::onMotionTimer()
     if(keyPressMap.contains(Qt::Key_W) || keyPressMap.contains(Qt::Key_S) || keyPressMap.contains(Qt::Key_A) || keyPressMap.contains(Qt::Key_D))
     {
         // Start animation timer if contains W, S, A, D
-        if(!moveTimer->isActive())
-            moveTimer->start();
+        if(!animationTimer->isActive())
+            animationTimer->start();
     }
     else
     {
         // Stop animation timer
-        moveTimer->stop();
+        animationTimer->stop();
         return;
     }
 
@@ -134,7 +134,7 @@ void BombermanHero::onMotionTimer()
     }
 }
 
-void BombermanHero::onMoveTimer()
+void BombermanHero::onAnimationTimer()
 {
     addCurrentTextureX();
     update();

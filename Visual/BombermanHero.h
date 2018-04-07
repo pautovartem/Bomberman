@@ -48,7 +48,7 @@ signals:
 
 private slots:
     void onMotionTimer();                               // Movement timer handler
-    void onMoveTimer();                                 // Animation timer handler
+    void onAnimationTimer();                            // Animation timer handler
 
 private:
     struct
@@ -64,12 +64,11 @@ private:
     TextureInfo *currentTextureInfo;                    // Information about current texture
 
     QTimer *motionTimer;                                // Timer to process keystrokes
-    QTimer *moveTimer;                                  // Timer for animations
+    QTimer *animationTimer;                                  // Timer for animations
 
     QMap<int, bool> keyPressMap;                        // Map keys pressed
     QMap<Direction, TextureInfo*> texturesMap;          // Textures
     Direction direction;                                // Current direction
-
 
     // QGraphicsItem interface
 private:

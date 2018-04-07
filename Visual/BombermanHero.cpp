@@ -28,14 +28,17 @@ BombermanHero::BombermanHero(QObject *parent) : QObject(parent), QGraphicsItem()
 
     moveTimer = new QTimer(this);
     connect(moveTimer, &QTimer::timeout, this, &BombermanHero::onMoveTimer);
-    moveTimer->start(200);
+    moveTimer->setInterval(200);
 }
 
 BombermanHero::~BombermanHero()
 {
     disconnect(this);
 
+    delete texture;
+
     delete motionTimer;
+    delete moveTimer;
 }
 
 QRectF BombermanHero::boundingRect() const
@@ -83,7 +86,7 @@ void BombermanHero::setDirection(const Direction &value)
     }
 }
 
-int BombermanHero::addCurrentTextureX()
+void BombermanHero::addCurrentTextureX()
 {
     currentTextureX += currentTextureInfo->widthElement;
     if(currentTextureX >= currentTextureInfo->widthElement * currentTextureInfo->countElement)
@@ -92,39 +95,43 @@ int BombermanHero::addCurrentTextureX()
 
 void BombermanHero::onMotionTimer()
 {
-    if (keyPressmap.containts()){
+    if(keyPressMap.contains(Qt::Key_W) || keyPressMap.contains(Qt::Key_S) || keyPressMap.contains(Qt::Key_A) || keyPressMap.contains(Qt::Key_D))
+    {
+        // Start animation timer if contains W, S, A, D
+        if(!moveTimer->isActive())
+            moveTimer->start();
+    }
+    else
+    {
+        // Stop animation timer
+        moveTimer->stop();
+        return;
+    }
+
+    // Check key and set current direction and
     if(keyPressMap.contains(Qt::Key_W))
     {
-        qDebug() << "UP";
-
         setDirection(Direction::Up);
         this->setY(this->y() - speedMotion);
     }
 
     if(keyPressMap.contains(Qt::Key_S))
     {
-        qDebug() << "DOWN";
-
         setDirection(Direction::Down);
         this->setY(this->y() + speedMotion);
     }
 
     if(keyPressMap.contains(Qt::Key_A))
     {
-        qDebug() << "LEFT";
-
         setDirection(Direction::Left);
         this->setX(this->x() - speedMotion);
     }
 
     if(keyPressMap.contains(Qt::Key_D))
     {
-        qDebug() << "RIGHT";
-
         setDirection(Direction::Right);
         this->setX(this->x() + speedMotion);
     }
-  }
 }
 
 void BombermanHero::onMoveTimer()

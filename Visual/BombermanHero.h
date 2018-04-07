@@ -36,19 +36,19 @@ public:
     explicit BombermanHero(QObject *parent = nullptr);
     ~BombermanHero();
 
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);               // Handler key press event
+    void keyReleaseEvent(QKeyEvent *event);             // Handler key release event
 
-    Direction getDirection() const;
-    void setDirection(const Direction &value);
+    Direction getDirection() const;                     // Get current direction
+    void setDirection(const Direction &value);          // Set current direction
 
-    int addCurrentTextureX();
+    void addCurrentTextureX();                          // Change current texture
 
 signals:
 
 private slots:
-    void onMotionTimer();
-    void onMoveTimer();
+    void onMotionTimer();                               // Movement timer handler
+    void onMoveTimer();                                 // Animation timer handler
 
 private:
     struct
@@ -57,16 +57,18 @@ private:
         int height;
     } sizeCell;                                         // Size sell for bomberman
 
-    int speedMotion;
+    int speedMotion;                                    // Movement speed
 
-    QPixmap *texture;
-    int currentTextureX;
-    TextureInfo *currentTextureInfo;
+    QPixmap *texture;                                   // Texture for the current view
+    int currentTextureX;                                // Current position texture
+    TextureInfo *currentTextureInfo;                    // Information about current texture
+
     QTimer *motionTimer;                                // Timer to process keystrokes
-    QTimer *moveTimer;
-    QMap<int, bool> keyPressMap;
-    QMap<Direction, TextureInfo*> texturesMap;
-    Direction direction;
+    QTimer *moveTimer;                                  // Timer for animations
+
+    QMap<int, bool> keyPressMap;                        // Map keys pressed
+    QMap<Direction, TextureInfo*> texturesMap;          // Textures
+    Direction direction;                                // Current direction
 
 
     // QGraphicsItem interface

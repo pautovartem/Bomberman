@@ -1,8 +1,10 @@
 #ifndef GAMEGROUND_H
 #define GAMEGROUND_H
 
+#include "Addon.h"
 #include "BombermanHero.h"
 #include "Wall.h"
+#include "WallDestroy.h"
 
 #include <QObject>
 #include <QGraphicsScene>
@@ -19,7 +21,11 @@ public slots:
 
 private:
     BombermanHero *bombermanHero;
-    Wall *wall;
+
+    QVector<QVector<QVector<GameItem> > > *map;
+    QVector<WallDestroy> *listWallDestroy;
+    QVector<Wall> *listWallNoDestroy;
+    QVector<Addon> *listAddons;
 
     // QGraphicsScene interface
 protected:

@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QGraphicsItem>
 
-#include "gameitemtype.h"
-
 class GameItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -15,13 +13,14 @@ public:
 
     virtual int type() const override;
 
+    // Game Item Types
     enum {
-        GameItem = UserType + 1,
-        Bomberman,
-        Wall,
-        WallDestroy,
-        Addon
-    }
+        GameItemType = UserType + 1,
+        BombermanType,
+        WallType,
+        WallDestroyType,
+        AddonType
+    };
 
 signals:
 
@@ -29,8 +28,8 @@ public slots:
 
     // QGraphicsItem interface
 protected:
-    virtual QRectF boundingRect() const = 0;
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
+    virtual QRectF boundingRect() const;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };
 
 #endif // GAMEITEM_H

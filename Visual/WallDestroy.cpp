@@ -1,11 +1,11 @@
 #include "WallDestroy.h"
 
 #include <QPainter>
+#include <QDebug>
 
 WallDestroy::WallDestroy(QObject *parent) : Wall(parent)
 {
-    currentTextureX = 0;
-
+    currentDestroyTextureX = 0;
     texture->load(":/wall/models/walls/stone_destroy_32px.png");
 
     textureDestroySource = ":/wall/models/walls/stone_destroy_sprite_32.png";
@@ -15,6 +15,8 @@ WallDestroy::WallDestroy(QObject *parent) : Wall(parent)
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, &WallDestroy::onAnimationTimer);
     animationTimer->setInterval(500 / textureDestroyCount);
+
+    returnType = WallDestroyType;
 }
 
 WallDestroy::~WallDestroy()
@@ -29,6 +31,8 @@ void WallDestroy::destroyWall()
     texture->load(textureDestroySource);
     currentDestroyTextureX = 0;
 
+    returnType = GameItemType;
+
     animationTimer->start();
 }
 
@@ -36,21 +40,26 @@ void WallDestroy::onAnimationTimer()
 {
     addCurrentTextureX();
     update();
-
-    if(++currentDestroyTextureIndex >= textureDestroyCount)
-        this->deleteLater();
 }
 
 void WallDestroy::addCurrentTextureX()
 {
-    currentTextureX += textureDestroyWidth;
-    if(currentTextureX >= textureDestroyWidth * textureDestroyCount)
-        currentTextureX = 0;
+    currentDestroyTextureX += 32;
+
+    // Destroy wall after end sprite
+    if(currentDestroyTextureX >= textureDestroyWidth * textureDestroyCount)
+        this->deleteLater();
 }
 
 void WallDestroy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->drawPixmap(- sizeCell.width / 2, - sizeCell.height / 2, *texture, currentTextureX, 0, sizeCell.width, sizeCell.height);
+    painter->drawPixmap(0, 0, *texture, currentDestroyTextureX, 0, sizeCell.width, sizeCell.height);
     Q_UNUSED(option);
     Q_UNUSED(widget);
+}
+
+
+int WallDestroy::type() const
+{
+    return returnType;
 }

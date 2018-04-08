@@ -2,6 +2,8 @@
 #include "ui_GameWindow.h"
 #include <QDebug>
 
+#include <QScrollBar>
+
 GameWindow::GameWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameWindow)
@@ -11,10 +13,12 @@ GameWindow::GameWindow(QWidget *parent) :
     gameGround = new GameGround();
 
     ui->graphicsView->setScene(gameGround);
-    ui->graphicsView->scale(2, 2);
+    ui->graphicsView->scale(0.2, 0.2);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    gameGround->centered();
 }
 
 GameWindow::~GameWindow()

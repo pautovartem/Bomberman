@@ -1,7 +1,7 @@
 #ifndef GAMEGROUND_H
 #define GAMEGROUND_H
 
-#include "Addon.h"
+//#include "Addon.h"
 #include "BombermanHero.h"
 #include "Wall.h"
 #include "WallDestroy.h"
@@ -15,22 +15,22 @@ public:
     explicit GameGround(QObject *parent = nullptr);
     ~GameGround();
 
+    void centered();
 signals:
 
 public slots:
 
 private:
-    BombermanHero *bombermanHero;
+    BombermanHero *bombermanHero;                               // Main hero
 
-    QVector<QVector<QVector<GameItem> > > *map;
-    QVector<WallDestroy> *listWallDestroy;
-    QVector<Wall> *listWallNoDestroy;
-    QVector<Addon> *listAddons;
+    QVector<WallDestroy *> *listWallDestroy;                    // list of the walls destoy
+    QVector<Wall *> *listWallNoDestroy;                         // list of the walls not destroy
+//    QVector<Addon> *listAddons;
 
     // QGraphicsScene interface
 protected:
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);                       // Key press handler
+    void keyReleaseEvent(QKeyEvent *event);                     // Key press handler
 };
 
 #endif // GAMEGROUND_H

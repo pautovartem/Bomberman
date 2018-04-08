@@ -1,16 +1,19 @@
 #include "BombermanHero.h"
+#include "WallDestroy.h"
 
 #include <QPainter>
 #include <QDebug>
 #include <windows.h>
 #include <QKeyEvent>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 BombermanHero::BombermanHero(QObject *parent) : GameItem(parent)
 {
     sizeCell.width = 32;
     sizeCell.height = 32;
 
-    speedMotion = 3;
+    speedMotion = 32;
 
     texturesMap[Direction::Up] = new TextureInfo(":/hero/Bomberman/models/bomberman/blue/up.png", 3, 32, 32);
     texturesMap[Direction::Down] = new TextureInfo(":/hero/Bomberman/models/bomberman/blue/down.png", 3, 32, 32);
@@ -49,6 +52,7 @@ QRectF BombermanHero::boundingRect() const
 void BombermanHero::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->drawPixmap(- sizeCell.width / 2, - sizeCell.height / 2, *texture, currentTextureX, 0, sizeCell.width, sizeCell.height);
+//    painter->drawRect(- sizeCell.width / 2, - sizeCell.height / 2, 32, 32);
     Q_UNUSED(option);
     Q_UNUSED(widget);
 }
@@ -67,23 +71,6 @@ void BombermanHero::setDirection(const Direction &value)
     currentTextureInfo = texturesMap[value];
     texture->load(currentTextureInfo->source);
     currentTextureX = 0;
-
-    if(direction == Direction::Up)
-    {
-
-    }
-    else if(direction == Direction::Down)
-    {
-
-    }
-    else if(direction == Direction::Left)
-    {
-
-    }
-    else if(direction == Direction::Right)
-    {
-
-    }
 }
 
 void BombermanHero::addCurrentTextureX()
@@ -93,6 +80,22 @@ void BombermanHero::addCurrentTextureX()
         currentTextureX = 0;
 }
 
+bool BombermanHero::collide()
+{
+    auto collideList = this->scene()->collidingItems(this);
+
+    for(auto item : collideList)
+    {
+        if(item->type() == WallType)
+            return true;
+
+        if(item->type() == WallDestroyType)
+            qgraphicsitem_cast<WallDestroy *> (item)->destroyWall();
+    }
+
+    return false;
+}
+
 void BombermanHero::onMotionTimer()
 {
     if(keyPressMap.contains(Qt::Key_W) || keyPressMap.contains(Qt::Key_S) || keyPressMap.contains(Qt::Key_A) || keyPressMap.contains(Qt::Key_D))
@@ -100,6 +103,8 @@ void BombermanHero::onMotionTimer()
         // Start animation timer if contains W, S, A, D
         if(!animationTimer->isActive())
             animationTimer->start();
+
+        scene()->views().at(0)->centerOn(this);
     }
     else
     {
@@ -113,24 +118,37 @@ void BombermanHero::onMotionTimer()
     {
         setDirection(Direction::Up);
         this->setY(this->y() - speedMotion);
+
+        // Check collide after change position
+        if(collide())
+            this->setY(this->y() + speedMotion);
     }
 
     if(keyPressMap.contains(Qt::Key_S))
     {
         setDirection(Direction::Down);
         this->setY(this->y() + speedMotion);
+
+        if(collide())
+            this->setY(this->y() - speedMotion);
     }
 
     if(keyPressMap.contains(Qt::Key_A))
     {
         setDirection(Direction::Left);
         this->setX(this->x() - speedMotion);
+
+        if(collide())
+            this->setX(this->x() + speedMotion);
     }
 
     if(keyPressMap.contains(Qt::Key_D))
     {
         setDirection(Direction::Right);
         this->setX(this->x() + speedMotion);
+
+        if(collide())
+            this->setX(this->x() - speedMotion);
     }
 }
 
@@ -152,5 +170,5 @@ void BombermanHero::keyReleaseEvent(QKeyEvent *event)
 
 int BombermanHero::type() const
 {
-    return Bomberman;
+    return BombermanType;
 }

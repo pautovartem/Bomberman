@@ -1,6 +1,7 @@
 #include "Wall.h"
 
 #include <QPainter>
+#include <QDebug>
 
 Wall::Wall(QObject *parent) : GameItem(parent)
 {
@@ -18,15 +19,20 @@ Wall::~Wall()
     delete texture;
 }
 
-
 QRectF Wall::boundingRect() const
 {
-    return QRectF(- sizeCell.width / 2, - sizeCell.height / 2, sizeCell.width, sizeCell.height);
+    return QRectF(0, 0, sizeCell.width, sizeCell.height);
 }
 
 void Wall::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->drawPixmap(- sizeCell.width / 2, - sizeCell.height / 2, *texture, 0, 0, sizeCell.width, sizeCell.height);
+    painter->drawPixmap(0, 0, *texture, 0, 0, sizeCell.width, sizeCell.height);
     Q_UNUSED(option);
     Q_UNUSED(widget);
+}
+
+
+int Wall::type() const
+{
+    return WallType;
 }

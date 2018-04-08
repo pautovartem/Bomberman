@@ -10,6 +10,7 @@ public:
     explicit Wall(QObject *parent = nullptr);
     ~Wall();
 
+    virtual int type() const override;
 signals:
 
 public slots:

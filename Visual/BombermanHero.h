@@ -24,11 +24,11 @@ struct TextureInfo {
         this->heightElement = p_heightElement;
     }
 
-    QString source;
-    int countElement;
+    QString source;                                     // Source of the texture
+    int countElement;                                   // Count elements of the texture
 
-    int widthElement;
-    int heightElement;
+    int widthElement;                                   // Width of the texture
+    int heightElement;                                  // Height of the texture
 };
 
 class BombermanHero : public GameItem
@@ -45,6 +45,10 @@ public:
     void setDirection(const Direction &value);          // Set current direction
 
     void addCurrentTextureX();                          // Change current texture
+
+    bool collide();                                     // Check collides of hero
+
+    int type() const override;
 
 signals:
 
@@ -66,7 +70,7 @@ private:
     TextureInfo *currentTextureInfo;                    // Information about current texture
 
     QTimer *motionTimer;                                // Timer to process keystrokes
-    QTimer *animationTimer;                                  // Timer for animations
+    QTimer *animationTimer;                             // Timer for animations
 
     QMap<int, bool> keyPressMap;                        // Map keys pressed
     QMap<Direction, TextureInfo*> texturesMap;          // Textures
@@ -76,6 +80,7 @@ private:
 private:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
 };
 
 #endif // BOMBERMANHERO_H

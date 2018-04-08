@@ -12,6 +12,7 @@ public:
     ~WallDestroy();
 
     void destroyWall();
+    int type() const override;
 
 public slots:
     void onAnimationTimer();                                        // Handler animation timer
@@ -25,9 +26,10 @@ private:
     int textureDestroyCount;                                        // Destroy wall texture count elements
 
     int currentDestroyTextureX;                                     // Current X destroy texture
-    int currentDestroyTextureIndex;                                 // Current index destroy texture
 
     QTimer *animationTimer;                                         // Animation timer
+
+    int returnType = WallDestroyType;
 
     // QGraphicsItem interface
 private:

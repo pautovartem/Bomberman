@@ -8,13 +8,13 @@ WallDestroy::WallDestroy(QObject *parent) : Wall(parent)
 
     texture->load(":/wall/models/walls/stone_destroy_32px.png");
 
-    textureDestroy = new QPixmap;
-    textureDestroy->load(":/wall/models/walls/stone_destroy_sprite_32.png");
+    textureDestroySource = ":/wall/models/walls/stone_destroy_sprite_32.png";
     textureDestroyWidth = 192;
     textureDestroyCount = 6;
 
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, &WallDestroy::onAnimationTimer);
+    animationTimer->setInterval(500 / textureDestroyCount);
 }
 
 WallDestroy::~WallDestroy()
@@ -24,10 +24,21 @@ WallDestroy::~WallDestroy()
     delete animationTimer;
 }
 
+void WallDestroy::destroyWall()
+{
+    texture->load(textureDestroySource);
+    currentDestroyTextureX = 0;
+
+    animationTimer->start();
+}
+
 void WallDestroy::onAnimationTimer()
 {
     addCurrentTextureX();
     update();
+
+    if(++currentDestroyTextureIndex >= textureDestroyCount)
+        this->deleteLater();
 }
 
 void WallDestroy::addCurrentTextureX()

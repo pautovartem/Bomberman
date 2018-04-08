@@ -1,10 +1,9 @@
 #ifndef WALL_H
 #define WALL_H
 
-#include <QObject>
-#include <QGraphicsItem>
+#include "GameItem.h"
 
-class Wall : public QObject, public QGraphicsItem
+class Wall : public GameItem
 {
     Q_OBJECT
 public:

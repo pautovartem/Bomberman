@@ -29,14 +29,20 @@ SOURCES += \
     GameGround.cpp \
     BombermanHero.cpp \
     Wall.cpp \
-    WallDestroy.cpp
+    WallDestroy.cpp \
+    MapGenerator.cpp \
+    GameItem.cpp \
+    Addon.cpp
 
 HEADERS += \
     GameWindow.h \
     GameGround.h \
     BombermanHero.h \
     Wall.h \
-    WallDestroy.h
+    WallDestroy.h \
+    MapGenerator.h \
+    GameItem.h \
+    Addon.h
 
 FORMS += \
     GameWindow.ui

@@ -2,7 +2,7 @@
 
 #include <QPainter>
 
-Wall::Wall(QObject *parent) : QObject(parent), QGraphicsItem()
+Wall::Wall(QObject *parent) : GameItem(parent)
 {
     sizeCell.width = 32;
     sizeCell.height = 32;

@@ -11,23 +11,27 @@ public:
     explicit WallDestroy(QObject *parent = nullptr);
     ~WallDestroy();
 
+    void destroyWall();
+
 public slots:
-    void onAnimationTimer();
+    void onAnimationTimer();                                        // Handler animation timer
 
 private:
-    void addCurrentTextureX();
+    void addCurrentTextureX();                                      // Iteration current X destroy texture
 
 private:
-    QString textureDestroySource;                                   // Texture for the current view
-    int textureDestroyWidth;
-    int textureDestroyCount;
-    int currentTextureX;
+    QString textureDestroySource;                                   // Destroy wall texture source
+    int textureDestroyWidth;                                        // Destroy wall texture width
+    int textureDestroyCount;                                        // Destroy wall texture count elements
 
-    QTimer *animationTimer;
+    int currentDestroyTextureX;                                     // Current X destroy texture
+    int currentDestroyTextureIndex;                                 // Current index destroy texture
+
+    QTimer *animationTimer;                                         // Animation timer
 
     // QGraphicsItem interface
 private:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 };
 
 #endif // WALLDESTROY_H

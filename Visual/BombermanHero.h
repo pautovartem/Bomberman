@@ -1,6 +1,8 @@
 #ifndef BOMBERMANHERO_H
 #define BOMBERMANHERO_H
 
+#include "GameItem.h"
+
 #include <QObject>
 #include <QGraphicsItem>
 #include <QTimer>
@@ -16,10 +18,10 @@ enum Direction {
 struct TextureInfo {
     TextureInfo(QString p_source, int p_countElement, int p_widthElement, int p_heightElement)
     {
-        source = p_source;
-        countElement = p_countElement;
-        widthElement = p_widthElement;
-        heightElement = p_heightElement;
+        this->source = p_source;
+        this->countElement = p_countElement;
+        this->widthElement = p_widthElement;
+        this->heightElement = p_heightElement;
     }
 
     QString source;
@@ -29,7 +31,7 @@ struct TextureInfo {
     int heightElement;
 };
 
-class BombermanHero : public QObject, public QGraphicsItem
+class BombermanHero : public GameItem
 {
     Q_OBJECT
 public:

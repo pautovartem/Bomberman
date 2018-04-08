@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <QKeyEvent>
 
-BombermanHero::BombermanHero(QObject *parent) : QObject(parent), QGraphicsItem()
+BombermanHero::BombermanHero(QObject *parent) : GameItem(parent)
 {
     sizeCell.width = 32;
     sizeCell.height = 32;
@@ -148,4 +148,9 @@ void BombermanHero::keyPressEvent(QKeyEvent *event)
 void BombermanHero::keyReleaseEvent(QKeyEvent *event)
 {
     keyPressMap.remove(event->key());
+}
+
+int BombermanHero::type() const
+{
+    return Bomberman;
 }

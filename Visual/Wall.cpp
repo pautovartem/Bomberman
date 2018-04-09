@@ -8,15 +8,12 @@ Wall::Wall(QObject *parent) : GameItem(parent)
     sizeCell.width = 32;
     sizeCell.height = 32;
 
-    texture = new QPixmap;
     texture->load(":/wall/models/walls/stone_no_destroy_32px.png");
 }
 
 Wall::~Wall()
 {
     disconnect(this);
-
-    delete texture;
 }
 
 QRectF Wall::boundingRect() const

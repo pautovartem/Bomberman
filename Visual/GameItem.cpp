@@ -2,12 +2,15 @@
 
 GameItem::GameItem(QObject *parent) : QObject(parent), QGraphicsItem()
 {
+    sizeCell.height = 32;
+    sizeCell.width = 32;
 
+    texture = new QPixmap;
 }
 
 GameItem::~GameItem()
 {
-
+    delete texture;
 }
 
 
@@ -26,4 +29,9 @@ void GameItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(painter);
     Q_UNUSED(option);
     Q_UNUSED(widget);
+}
+
+void GameItem::onAnimationTimer()
+{
+
 }

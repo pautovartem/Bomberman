@@ -7,6 +7,8 @@
 class GameItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
+
 public:
     explicit GameItem(QObject *parent = nullptr);
     ~GameItem();
@@ -35,6 +37,10 @@ protected:
     } sizeCell;                                         // Size sell for texture
 
     QPixmap *texture;                                   // Texture for the current view
+    QTimer *animationTimer;                             // Timer for animations
+
+protected slots:
+    virtual void onAnimationTimer();
 };
 
 #endif // GAMEITEM_H

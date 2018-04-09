@@ -21,8 +21,6 @@ BombermanHero::BombermanHero(QObject *parent) : GameItem(parent)
     texturesMap[Direction::Right] = new TextureInfo(":/hero/Bomberman/models/bomberman/blue/right.png", 3, 32, 32);
     texturesMap[Direction::Destroy] = new TextureInfo(":/hero/Bomberman/models/bomberman/blue/destroy.png", 9, 32, 32);
 
-    texture = new QPixmap;
-
     setDirection(Direction::Down);
 
     motionTimer = new QTimer(this);
@@ -37,8 +35,6 @@ BombermanHero::BombermanHero(QObject *parent) : GameItem(parent)
 BombermanHero::~BombermanHero()
 {
     disconnect(this);
-
-    delete texture;
 
     delete motionTimer;
     delete animationTimer;

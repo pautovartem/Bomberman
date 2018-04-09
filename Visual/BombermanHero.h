@@ -52,7 +52,7 @@ public:
 
 private slots:
     void onMotionTimer();                               // Movement timer handler
-    void onAnimationTimer();                            // Animation timer handler
+    void onAnimationTimer() override;
 
 private:
     int speedMotion;                                    // Movement speed
@@ -61,7 +61,6 @@ private:
     TextureInfo *currentTextureInfo;                    // Information about current texture
 
     QTimer *motionTimer;                                // Timer to process keystrokes
-    QTimer *animationTimer;                             // Timer for animations
 
     QMap<int, bool> keyPressMap;                        // Map keys pressed
     QMap<Direction, TextureInfo*> texturesMap;          // Textures

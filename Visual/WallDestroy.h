@@ -14,12 +14,6 @@ public:
     void destroyWall();
     int type() const override;
 
-public slots:
-    void onAnimationTimer();                                        // Handler animation timer
-
-private:
-    void addCurrentTextureX();                                      // Iteration current X destroy texture
-
 private:
     QString textureDestroySource;                                   // Destroy wall texture source
     int textureDestroyWidth;                                        // Destroy wall texture width
@@ -27,13 +21,14 @@ private:
 
     int currentDestroyTextureX;                                     // Current X destroy texture
 
-    QTimer *animationTimer;                                         // Animation timer
+    int returnType = WallDestroyType;                               // Type for return
 
-    int returnType = WallDestroyType;
+    void addCurrentTextureX();                                      // Iteration current X destroy texture
 
-    // QGraphicsItem interface
-private:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+private slots:
+    void onAnimationTimer() override;
 };
 
 #endif // WALLDESTROY_H

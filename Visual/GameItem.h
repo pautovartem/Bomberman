@@ -19,17 +19,22 @@ public:
         BombermanType,
         WallType,
         WallDestroyType,
-        AddonType
+        AddonType,
+        BombType
     };
-
-signals:
-
-public slots:
 
     // QGraphicsItem interface
 protected:
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    struct
+    {
+        int width;
+        int height;
+    } sizeCell;                                         // Size sell for texture
+
+    QPixmap *texture;                                   // Texture for the current view
 };
 
 #endif // GAMEITEM_H

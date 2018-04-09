@@ -16,9 +16,6 @@ public:
     ~GameGround();
 
     void centered();
-signals:
-
-public slots:
 
 private:
     BombermanHero *bombermanHero;                               // Main hero

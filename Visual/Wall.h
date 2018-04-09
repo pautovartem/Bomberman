@@ -11,18 +11,6 @@ public:
     ~Wall();
 
     virtual int type() const override;
-signals:
-
-public slots:
-
-protected:
-    struct
-    {
-        int width;
-        int height;
-    } sizeCell;                                         // Size sell for bomberman
-
-    QPixmap *texture;                                   // Texture for the current view
 
     // QGraphicsItem interface
 protected:

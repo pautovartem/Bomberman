@@ -50,22 +50,13 @@ public:
 
     int type() const override;
 
-signals:
-
 private slots:
     void onMotionTimer();                               // Movement timer handler
     void onAnimationTimer();                            // Animation timer handler
 
 private:
-    struct
-    {
-        int width;
-        int height;
-    } sizeCell;                                         // Size sell for bomberman
-
     int speedMotion;                                    // Movement speed
 
-    QPixmap *texture;                                   // Texture for the current view
     int currentTextureX;                                // Current position texture
     TextureInfo *currentTextureInfo;                    // Information about current texture
 
@@ -80,7 +71,6 @@ private:
 private:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
 };
 
 #endif // BOMBERMANHERO_H

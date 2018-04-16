@@ -9,7 +9,7 @@ WallDestroy::WallDestroy(QObject *parent) : Wall(parent)
     texture->load(":/wall/models/walls/stone_destroy_32px.png");
 
     textureDestroySource = ":/wall/models/walls/stone_destroy_sprite_32.png";
-    textureDestroyWidth = 192;
+    textureDestroyWidth = sizeCell.width;
     textureDestroyCount = 6;
 
     animationTimer = new QTimer(this);

@@ -2,6 +2,7 @@
 #define BOMBERMANHERO_H
 
 #include "GameItem.h"
+#include "Bomb.h"
 
 #include <QObject>
 #include <QGraphicsItem>
@@ -65,6 +66,8 @@ private:
     QMap<int, bool> keyPressMap;                        // Map keys pressed
     QMap<Direction, TextureInfo*> texturesMap;          // Textures
     Direction direction;                                // Current direction
+
+    QVector<Bomb *> *bombs;
 
     // QGraphicsItem interface
 private:

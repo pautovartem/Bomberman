@@ -30,6 +30,8 @@ BombermanHero::BombermanHero(QObject *parent) : GameItem(parent)
     animationTimer = new QTimer(this);
     connect(animationTimer, &QTimer::timeout, this, &BombermanHero::onAnimationTimer);
     animationTimer->setInterval(200);
+
+    bombs = new QVector<Bomb *>();
 }
 
 BombermanHero::~BombermanHero()
@@ -38,6 +40,7 @@ BombermanHero::~BombermanHero()
 
     delete motionTimer;
     delete animationTimer;
+    delete bombs;
 }
 
 QRectF BombermanHero::boundingRect() const
@@ -87,6 +90,9 @@ bool BombermanHero::collide()
 
         if(item->type() == WallDestroyType)
             qgraphicsitem_cast<WallDestroy *> (item)->destroyWall();
+
+        if(item->type() == BombType)
+            return true;
     }
 
     return false;
@@ -100,51 +106,69 @@ void BombermanHero::onMotionTimer()
         if(!animationTimer->isActive())
             animationTimer->start();
 
+        // Check key and set current direction and
+        if(keyPressMap.contains(Qt::Key_W))
+        {
+            setDirection(Direction::Up);
+            this->setY(this->y() - speedMotion);
+
+            // Check collide after change position
+            if(collide())
+                this->setY(this->y() + speedMotion);
+        }
+
+        if(keyPressMap.contains(Qt::Key_S))
+        {
+            setDirection(Direction::Down);
+            this->setY(this->y() + speedMotion);
+
+            if(collide())
+                this->setY(this->y() - speedMotion);
+        }
+
+        if(keyPressMap.contains(Qt::Key_A))
+        {
+            setDirection(Direction::Left);
+            this->setX(this->x() - speedMotion);
+
+            if(collide())
+                this->setX(this->x() + speedMotion);
+        }
+
+        if(keyPressMap.contains(Qt::Key_D))
+        {
+            setDirection(Direction::Right);
+            this->setX(this->x() + speedMotion);
+
+            if(collide())
+                this->setX(this->x() - speedMotion);
+        }
+
         scene()->views().at(0)->centerOn(this);
     }
     else
     {
         // Stop animation timer
         animationTimer->stop();
-        return;
     }
 
-    // Check key and set current direction and
-    if(keyPressMap.contains(Qt::Key_W))
+    // Set the bomb
+    if(keyPressMap.contains(Qt::Key_Space))
     {
-        setDirection(Direction::Up);
-        this->setY(this->y() - speedMotion);
-
-        // Check collide after change position
-        if(collide())
-            this->setY(this->y() + speedMotion);
-    }
-
-    if(keyPressMap.contains(Qt::Key_S))
-    {
-        setDirection(Direction::Down);
-        this->setY(this->y() + speedMotion);
+        qDebug() << "Enter to space handler";
 
         if(collide())
-            this->setY(this->y() - speedMotion);
-    }
+            return;
 
-    if(keyPressMap.contains(Qt::Key_A))
-    {
-        setDirection(Direction::Left);
-        this->setX(this->x() - speedMotion);
+        qDebug() << "Skip collide in space handler";
 
-        if(collide())
-            this->setX(this->x() + speedMotion);
-    }
+        Bomb *currentBomb = new Bomb(this->scene());
+        currentBomb->setPos(this->pos());
 
-    if(keyPressMap.contains(Qt::Key_D))
-    {
-        setDirection(Direction::Right);
-        this->setX(this->x() + speedMotion);
+        this->scene()->addItem(currentBomb);
+        bombs->push_back(currentBomb);
 
-        if(collide())
-            this->setX(this->x() - speedMotion);
+        qDebug() << "Bomb is created:" << currentBomb->pos();
     }
 }
 

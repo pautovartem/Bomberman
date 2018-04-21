@@ -43,7 +43,7 @@ bool MapGenerator::generateDefault(int colCount, int rowCount)
     }
 
     mapIsGenerated = generateWallDefault();
-    mapIsGenerated = generateWallD(60);
+    mapIsGenerated = generateWallD(100);
 
     return mapIsGenerated;
 }

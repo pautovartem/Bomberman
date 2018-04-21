@@ -31,7 +31,8 @@ SOURCES += \
     Wall.cpp \
     WallDestroy.cpp \
     MapGenerator.cpp \
-    GameItem.cpp
+    GameItem.cpp \
+    Bomb.cpp
 
 HEADERS += \
     GameWindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     Wall.h \
     WallDestroy.h \
     MapGenerator.h \
-    GameItem.h
+    GameItem.h \
+    Bomb.h
 
 FORMS += \
     GameWindow.ui

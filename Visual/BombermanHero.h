@@ -48,12 +48,14 @@ public:
     void addCurrentTextureX();                          // Change current texture
 
     bool collide();                                     // Check collides of hero
+    bool stayAtLastBomb();
 
     int type() const override;
 
 private slots:
     void onMotionTimer();                               // Movement timer handler
     void onAnimationTimer() override;
+    void onBombDestroy(Bomb *bomb);
 
 private:
     int speedMotion;                                    // Movement speed
@@ -68,6 +70,7 @@ private:
     Direction direction;                                // Current direction
 
     QVector<Bomb *> *bombs;
+    Bomb *lastBomb;
 
     // QGraphicsItem interface
 private:

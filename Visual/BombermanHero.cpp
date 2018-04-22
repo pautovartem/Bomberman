@@ -13,7 +13,7 @@ BombermanHero::BombermanHero(QObject *parent) : GameItem(parent)
     sizeCell.width = 32;
     sizeCell.height = 32;
 
-    speedMotion = 32;
+    speedMotion = 4;
 
     texturesMap[Direction::Up] = new TextureInfo(":/hero/Bomberman/models/bomberman/blue/up.png", 3, 32, 32);
     texturesMap[Direction::Down] = new TextureInfo(":/hero/Bomberman/models/bomberman/blue/down.png", 3, 32, 32);
@@ -83,19 +83,55 @@ bool BombermanHero::collide()
 {
     auto collideList = this->scene()->collidingItems(this);
 
+    if(lastBomb)
+    {
+        bool find = false;
+        for(auto item : collideList)
+        {
+            if(item == lastBomb)
+                find = true;
+        }
+
+        if(!find)
+            lastBomb = nullptr;
+    }
+
     for(auto item : collideList)
     {
         if(item->type() == WallType)
             return true;
 
         if(item->type() == WallDestroyType)
-            qgraphicsitem_cast<WallDestroy *> (item)->destroyWall();
+            return true;
+//            qgraphicsitem_cast<WallDestroy *> (item)->destroyWall();
 
         if(item->type() == BombType)
-            return true;
+            if(item != lastBomb)
+                return true;
     }
 
     return false;
+}
+
+bool BombermanHero::stayAtLastBomb()
+{
+    auto collideList = this->scene()->collidingItems(this);
+
+    bool find = false;
+
+    if(lastBomb)
+    {
+        for(auto item : collideList)
+        {
+            if(item == lastBomb)
+                find = true;
+        }
+
+        if(!find)
+            lastBomb = nullptr;
+    }
+
+    return find;
 }
 
 void BombermanHero::onMotionTimer()
@@ -157,7 +193,7 @@ void BombermanHero::onMotionTimer()
     {
         qDebug() << "Enter to space handler";
 
-        if(collide())
+        if(stayAtLastBomb())
             return;
 
         qDebug() << "Skip collide in space handler";
@@ -167,6 +203,7 @@ void BombermanHero::onMotionTimer()
 
         this->scene()->addItem(currentBomb);
         bombs->push_back(currentBomb);
+        lastBomb = currentBomb;
 
         qDebug() << "Bomb is created:" << currentBomb->pos();
     }
@@ -176,6 +213,11 @@ void BombermanHero::onAnimationTimer()
 {
     addCurrentTextureX();
     update();
+}
+
+void BombermanHero::onBombDestroy(Bomb *bomb)
+{
+    bombs->removeOne(bomb);
 }
 
 void BombermanHero::keyPressEvent(QKeyEvent *event)
